@@ -6,6 +6,7 @@ import Process from '@/components/Process'
 import System from '@/components/System'
 import Examples from '@/components/Examples'
 import Packs from '@/components/Packs'
+import Testimonials from '@/components/Testimonials'
 import FAQ from '@/components/FAQ'
 import Trust from '@/components/Trust'
 import CTAFinal from '@/components/CTAFinal'
@@ -35,7 +36,10 @@ export default function Home() {
         {/* 6. Offers — pricing / packs */}
         <Packs />
 
-        {/* 7. Results — preuve visuelle */}
+        {/* 7. Testimonials — social proof */}
+        <Testimonials />
+
+        {/* 8. Results — preuve visuelle */}
         <Examples />
 
         {/* 8. Trust — réassurance */}

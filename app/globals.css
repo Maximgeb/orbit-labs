@@ -2706,6 +2706,237 @@ body {
 /* ─────────────────────────────────────────────────────────── */
 
 /* ============================================================
+   TESTIMONIALS — Horizontal Slider
+   ============================================================ */
+
+.orbit-testimonials {
+  position: relative;
+  padding: var(--orbit-section-py) 0;
+  background: #111114;
+  overflow: hidden;
+}
+
+.orbit-testimonials .fade {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 50% at 50% 0%, rgba(255,90,31,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.orbit-testimonials .wrap {
+  max-width: var(--orbit-max);
+  margin: 0 auto;
+  padding: 0 var(--orbit-section-px);
+}
+
+.orbit-testimonials .head {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.orbit-testimonials .pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255,90,31,0.10);
+  border: 1px solid rgba(255,90,31,0.22);
+  color: #FF5A1F;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 999px;
+  margin-bottom: 20px;
+}
+
+.orbit-testimonials .pill .dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #FF5A1F;
+  animation: pulse 2s ease-in-out infinite;
+}
+
+.orbit-testimonials .heading {
+  font-size: var(--orbit-h2);
+  font-weight: 700;
+  line-height: var(--orbit-lh-tight);
+  letter-spacing: var(--orbit-track-h2);
+  margin: 0 0 14px;
+}
+
+.orbit-testimonials .sub {
+  font-size: var(--orbit-lead);
+  color: rgba(240,237,232,0.5);
+  max-width: 480px;
+  margin: 0 auto;
+  line-height: var(--orbit-lh-body);
+}
+
+/* ── Slider outer ── */
+.testi-outer {
+  position: relative;
+}
+
+.testi-track {
+  display: flex;
+  gap: 16px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  padding: 8px 4px 16px;
+  cursor: grab;
+}
+
+.testi-track:active { cursor: grabbing; }
+.testi-track::-webkit-scrollbar { display: none; }
+
+/* ── Card ── */
+.testi-card {
+  flex: 0 0 320px;
+  scroll-snap-align: start;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 14px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: border-color .2s ease, background .2s ease;
+}
+
+.testi-card:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,90,31,0.22);
+}
+
+.testi-stars {
+  display: flex;
+  gap: 3px;
+}
+
+.testi-quote {
+  font-size: 14px;
+  line-height: 1.65;
+  color: rgba(240,237,232,0.85);
+  margin: 0;
+  flex: 1;
+}
+
+.testi-author {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-top: 4px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.testi-avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.testi-avatar span {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.testi-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.testi-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #F0EDE8;
+}
+
+.testi-role {
+  font-size: 11px;
+  color: rgba(240,237,232,0.45);
+  letter-spacing: 0.02em;
+}
+
+/* ── Arrows ── */
+.testi-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  color: #F0EDE8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background .18s ease, border-color .18s ease, opacity .18s ease;
+  z-index: 2;
+}
+
+.testi-arrow svg { width: 18px; height: 18px; }
+
+.testi-arrow--prev { left: -18px; }
+.testi-arrow--next { right: -18px; }
+
+.testi-arrow:hover {
+  background: rgba(255,90,31,0.15);
+  border-color: rgba(255,90,31,0.35);
+}
+
+.testi-arrow.disabled,
+.testi-arrow:disabled {
+  opacity: 0.25;
+  cursor: default;
+  pointer-events: none;
+}
+
+/* ── Dots ── */
+.testi-dots {
+  display: flex;
+  justify-content: center;
+  gap: 7px;
+  margin-top: 20px;
+}
+
+.testi-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  cursor: pointer;
+  transition: background .2s ease, transform .2s ease;
+  padding: 0;
+}
+
+.testi-dot.active {
+  background: #FF5A1F;
+  transform: scale(1.4);
+}
+
+/* ── Mobile ── */
+@media (max-width: 520px) {
+  .testi-card { flex: 0 0 280px; padding: 20px; }
+  .testi-arrow { display: none; }
+}
+
+/* ─────────────────────────────────────────────────────────── */
+
+/* ============================================================
    REDUCED MOTION
    ============================================================ */
 
