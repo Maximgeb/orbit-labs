@@ -1842,79 +1842,116 @@ body {
 }
 
 /* ============================================================
-   CTA FINAL
+   CTA FINAL — Upgraded
    ============================================================ */
 
 .orbit-cta {
   position: relative;
-  padding: var(--orbit-section-py) var(--orbit-section-px);
-  background: #111114;
+  padding: calc(var(--orbit-section-py) * 1.4) var(--orbit-section-px);
+  background: #0d0d10;
   color: #fff;
   overflow: hidden;
   text-align: center;
+  border-top: 1px solid rgba(255,90,31,0.12);
 }
 
-.orbit-cta .wrap { max-width: 700px; margin: 0 auto; position: relative; z-index: 2; }
-
-.orbit-cta .fade {
+.cta-glow {
   position: absolute; inset: 0;
-  background: radial-gradient(ellipse 90% 70% at 50% 50%, rgba(255,90,31,0.12) 0%, rgba(0,0,0,0) 65%);
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(255,90,31,0.14) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 50% 50%, rgba(255,90,31,0.07) 0%, transparent 70%);
+  pointer-events: none;
 }
 
-.orbit-cta h2 {
-  margin: 0 auto 12px;
-  font-size: var(--orbit-h2);
-  line-height: var(--orbit-lh-tight);
-  letter-spacing: var(--orbit-track-h2);
-  font-weight: 950;
-  color: #fff;
-  max-width: 22ch;
+.cta-wrap {
+  max-width: 680px; margin: 0 auto; position: relative; z-index: 2;
+  display: flex; flex-direction: column; align-items: center;
 }
 
-.orbit-cta .sub {
-  margin: 0 auto 28px;
-  max-width: 52ch;
-  color: rgba(255,255,255,0.68);
-  font-size: var(--orbit-lead);
-  line-height: 1.5;
+.cta-urgency {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: rgba(255,90,31,0.10); border: 1px solid rgba(255,90,31,0.25);
+  color: #FF5A1F; font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
+  text-transform: uppercase; padding: 5px 13px; border-radius: 999px; margin-bottom: 24px;
 }
 
-.orbit-cta .btn-row {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+.urgency-dot {
+  width: 6px; height: 6px; border-radius: 50%; background: #FF5A1F;
+  animation: pulse 1.6s ease-in-out infinite;
 }
 
-.orbit-cta .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 14px 22px;
-  border-radius: 999px;
-  text-decoration: none;
-  font-weight: 900;
-  font-size: 14px;
-  letter-spacing: -0.2px;
-  transition: transform .15s ease, filter .15s ease;
-  width: min(340px, 100%);
+.cta-h2 {
+  margin: 0 0 16px;
+  font-size: clamp(28px, 5vw, 44px);
+  line-height: 1.08; letter-spacing: -0.8px; font-weight: 800;
 }
 
-.orbit-cta .btn-primary {
-  background: #FF5A1F;
-  color: #fff;
-  border: 1px solid rgba(255,90,31,0.25);
-  box-shadow: 0 16px 50px rgba(255,90,31,0.20);
+.cta-sub {
+  margin: 0 0 32px; max-width: 50ch;
+  color: rgba(255,255,255,0.60); font-size: var(--orbit-lead); line-height: 1.6;
 }
 
+.cta-btns {
+  display: flex; flex-direction: column; align-items: center;
+  gap: 12px; width: 100%; margin-bottom: 32px;
+}
+
+@media (min-width: 520px) {
+  .cta-btns { flex-direction: row; justify-content: center; }
+}
+
+.cta-btn-primary {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 15px 28px; background: #FF5A1F; color: #fff; border-radius: 999px;
+  font-size: 15px; font-weight: 800; letter-spacing: -0.2px; text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 0 0 0 rgba(255,90,31,0.4), 0 16px 50px rgba(255,90,31,0.25);
+  transition: transform .16s ease, box-shadow .16s ease, filter .16s ease;
+  white-space: nowrap;
+}
+
+.cta-btn-dot {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: rgba(255,255,255,0.7); animation: pulse 1.8s ease-in-out infinite;
+}
+
+.cta-btn-primary:hover {
+  transform: translateY(-2px); filter: brightness(1.08);
+  box-shadow: 0 0 0 6px rgba(255,90,31,0.12), 0 20px 60px rgba(255,90,31,0.32);
+}
+
+.cta-btn-ghost {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 24px; background: transparent; color: rgba(255,255,255,0.65);
+  border: 1px solid rgba(255,255,255,0.14); border-radius: 999px;
+  font-size: 14px; font-weight: 600; text-decoration: none;
+  transition: color .16s ease, border-color .16s ease, background .16s ease;
+  white-space: nowrap;
+}
+
+.cta-btn-ghost:hover {
+  color: #fff; border-color: rgba(255,255,255,0.28); background: rgba(255,255,255,0.05);
+}
+
+.cta-guarantees {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 8px 20px; padding-top: 24px;
+  border-top: 1px solid rgba(255,255,255,0.07); width: 100%;
+}
+
+.cta-guarantee { display: flex; align-items: center; gap: 6px; font-size: 12px; color: rgba(255,255,255,0.45); }
+.cta-g-icon { font-size: 13px; line-height: 1; }
+
+/* Legacy selectors */
+.orbit-cta .wrap { max-width: 700px; margin: 0 auto; position: relative; z-index: 2; }
+.orbit-cta .fade { position: absolute; inset: 0; background: radial-gradient(ellipse 90% 70% at 50% 50%, rgba(255,90,31,0.12) 0%, rgba(0,0,0,0) 65%); }
+.orbit-cta h2 { margin: 0 auto 12px; font-size: var(--orbit-h2); line-height: var(--orbit-lh-tight); letter-spacing: var(--orbit-track-h2); font-weight: 950; color: #fff; max-width: 22ch; }
+.orbit-cta .sub { margin: 0 auto 28px; max-width: 52ch; color: rgba(255,255,255,0.68); font-size: var(--orbit-lead); line-height: 1.5; }
+.orbit-cta .btn-row { display: flex; flex-direction: column; align-items: center; gap: 10px; }
+.orbit-cta .btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 14px 22px; border-radius: 999px; text-decoration: none; font-weight: 900; font-size: 14px; letter-spacing: -0.2px; transition: transform .15s ease, filter .15s ease; width: min(340px, 100%); }
+.orbit-cta .btn-primary { background: #FF5A1F; color: #fff; border: 1px solid rgba(255,90,31,0.25); box-shadow: 0 16px 50px rgba(255,90,31,0.20); }
 .orbit-cta .btn-primary:hover { transform: translateY(-1px); filter: brightness(1.06); }
-
-.orbit-cta .note {
-  margin-top: 14px;
-  color: rgba(255,255,255,0.48);
-  font-size: 12px;
-}
+.orbit-cta .note { margin-top: 14px; color: rgba(255,255,255,0.48); font-size: 12px; }
 
 @media (min-width: 600px) {
   .orbit-cta .btn-row { flex-direction: row; justify-content: center; }
