@@ -350,7 +350,7 @@ body {
 
 /* "Glue" words — 8lab muted treatment (50% opacity — more readable on dark) */
 .oh-dim {
-  color: rgba(255,255,255,0.50);
+  color: #FF5A1F;
 }
 
 /* Subtext */
@@ -554,7 +554,7 @@ body {
    ============================================================ */
 
 /* Re-export .oh-dim/.oh-bright as generic utilities usable in any section */
-.s-dim  { color: rgba(255,255,255,0.45); }
+.s-dim  { color: #FF5A1F; }
 .s-bright { color: #fff; }
 
 /* ============================================================
