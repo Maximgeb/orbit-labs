@@ -1,6 +1,36 @@
 'use client'
 
-import Reveal from './Reveal'
+import { motion } from 'framer-motion'
+import GlowCard from './ui/GlowCard'
+
+const EASE = [0.22, 1, 0.36, 1] as const
+
+const pillars = [
+  {
+    step: '01',
+    kicker: 'Hook-first',
+    title: 'On construit l\'accroche avant tout.',
+    p: 'Le hook = 70% du résultat. Chaque vidéo démarre pour stopper le scroll, créer l\'intérêt, puis amener le clic / l\'action.',
+  },
+  {
+    step: '02',
+    kicker: 'Angles + copy',
+    title: 'Scripts qui vendent.',
+    p: 'Douleurs, objections, verbatim : on transforme ça en scripts + overlays lisibles, conversion-first.',
+  },
+  {
+    step: '03',
+    kicker: 'Multi-scènes',
+    title: 'Rythme + cuts.',
+    p: 'On évite le rendu IA statique : scènes, transitions, montage dynamique pour un rendu UGC crédible.',
+  },
+  {
+    step: '04',
+    kicker: 'Batch testable',
+    title: 'Variations prêtes à itérer.',
+    p: 'Plusieurs hooks + variations d\'angles. Tu testes vite, tu gardes les winners, tu scales proprement.',
+  },
+]
 
 export default function System() {
   return (
@@ -13,7 +43,13 @@ export default function System() {
 
       <div className="wrap">
 
-        <Reveal className="head">
+        <motion.div
+          className="head"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-60px' }}
+          transition={{ duration: 0.65, ease: EASE }}
+        >
           <h2 className="heading">
             <span className="s-dim">Pas de la génération IA.</span>{' '}
             <span className="s-bright">Un système de testing.</span>
@@ -22,51 +58,28 @@ export default function System() {
             Chaque créa est construite pour apprendre : hook, angle, message, rythme.
             Tu sors avec des données — pas juste des vidéos.
           </p>
-        </Reveal>
+        </motion.div>
 
         <div className="frame">
-          <div className="grid">
-
-            {/* BIG CARD */}
-            <Reveal className="card big" delay={0}>
-              <div className="kicker"><span className="dot" />Hook-first</div>
-              <h3 className="title">On construit l&apos;accroche avant tout.</h3>
-              <p className="p">
-                Le hook = 70% du résultat. Chaque vidéo démarre pour stopper le scroll,
-                créer l&apos;intérêt, puis amener le clic / l&apos;action.
-              </p>
-            </Reveal>
-
-            {/* CARD 2 */}
-            <Reveal className="card" delay={0.1}>
-              <div className="kicker"><span className="dot" />Angles + copy</div>
-              <h3 className="title">Scripts qui vendent.</h3>
-              <p className="p">
-                Douleurs, objections, verbatim : on transforme ça en scripts + overlays
-                lisibles, conversion-first.
-              </p>
-            </Reveal>
-
-            {/* CARD 3 */}
-            <Reveal className="card" delay={0.2}>
-              <div className="kicker"><span className="dot" />Multi-scènes</div>
-              <h3 className="title">Rythme + cuts.</h3>
-              <p className="p">
-                On évite le rendu IA statique : scènes, transitions, montage dynamique
-                pour un rendu UGC crédible.
-              </p>
-            </Reveal>
-
-            {/* CARD 4 */}
-            <Reveal className="card" delay={0.3}>
-              <div className="kicker"><span className="dot" />Batch testable</div>
-              <h3 className="title">Variations prêtes à itérer.</h3>
-              <p className="p">
-                Plusieurs hooks + variations d&apos;angles. Tu testes vite, tu gardes les winners,
-                tu scales proprement.
-              </p>
-            </Reveal>
-
+          <div className="sys-grid">
+            {pillars.map((p, i) => (
+              <motion.div
+                key={i}
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: '-60px' }}
+                transition={{ duration: 0.65, ease: EASE, delay: i * 0.09 }}
+              >
+                <GlowCard className="sys-card">
+                  <div className="sys-step-num" aria-hidden="true">{p.step}</div>
+                  <div className="sys-body">
+                    <div className="kicker"><span className="dot" />{p.kicker}</div>
+                    <h3 className="title">{p.title}</h3>
+                    <p className="p">{p.p}</p>
+                  </div>
+                </GlowCard>
+              </motion.div>
+            ))}
           </div>
         </div>
 

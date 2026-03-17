@@ -1,4 +1,5 @@
 import Nav from '@/components/Nav'
+import ScrollProgress from '@/components/ui/ScrollProgress'
 import Hero from '@/components/Hero'
 import Problem from '@/components/Problem'
 import Why from '@/components/Why'
@@ -16,6 +17,7 @@ import WhatsApp from '@/components/WhatsApp'
 export default function Home() {
   return (
     <>
+      <ScrollProgress />
       <Nav />
       <main>
         {/* 1. Hero */}

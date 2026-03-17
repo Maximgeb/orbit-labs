@@ -12,6 +12,104 @@ const avatars = [
   'https://images.unsplash.com/photo-1527980965255-d3b416303d12?auto=format&fit=crop&w=80&q=60',
 ]
 
+function HeroVisual() {
+  return (
+    <motion.div
+      className="oh-visual-wrap"
+      initial={{ opacity: 0, x: 28 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ duration: 0.9, ease: EASE, delay: 0.35 }}
+    >
+      {/* Glow behind card */}
+      <div className="oh-visual-glow" aria-hidden="true" />
+
+      {/* Delivery card */}
+      <motion.div
+        className="oh-visual-card"
+        animate={{ y: [0, -8, 0] }}
+        transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut' }}
+      >
+        {/* Top bar: status */}
+        <div className="oh-vc-top">
+          <span className="oh-vc-status">
+            <span className="oh-vc-status-dot" />
+            Livré
+          </span>
+          <span className="oh-vc-time">48h</span>
+        </div>
+
+        {/* Phone + video preview */}
+        <div className="oh-vc-phone">
+          <div className="oh-vc-screen">
+            {/* Video gradient placeholder */}
+            <div className="oh-vc-video">
+              <div className="oh-vc-video-bg" />
+              {/* Play button */}
+              <div className="oh-vc-play" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="currentColor" width="22" height="22">
+                  <path d="M8 5.14v14l11-7-11-7z"/>
+                </svg>
+              </div>
+              {/* UGC label overlay */}
+              <div className="oh-vc-label">UGC #04</div>
+            </div>
+          </div>
+          {/* Phone notch */}
+          <div className="oh-vc-notch" aria-hidden="true" />
+        </div>
+
+        {/* Meta row */}
+        <div className="oh-vc-meta">
+          <div className="oh-vc-pack">Hook Sprint · 8 vidéos</div>
+          <div className="oh-vc-count">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" width="13" height="13">
+              <rect x="2" y="6" width="14" height="12" rx="2"/><path d="M22 8.5l-4 3 4 3V8.5z"/>
+            </svg>
+            MP4 prêts pub
+          </div>
+        </div>
+
+        {/* Bottom: watermark */}
+        <div className="oh-vc-footer">
+          <span className="oh-vc-brand">Orbit Labs</span>
+          <span className="oh-vc-check">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" width="12" height="12">
+              <path d="M20 6L9 17l-5-5"/>
+            </svg>
+            Meta & TikTok ready
+          </span>
+        </div>
+      </motion.div>
+
+      {/* Floating badge — top right */}
+      <motion.div
+        className="oh-visual-badge"
+        initial={{ opacity: 0, scale: 0.85 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, ease: EASE, delay: 0.65 }}
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" width="14" height="14">
+          <path d="M12 6v6l4 2"/><circle cx="12" cy="12" r="10"/>
+        </svg>
+        Brief → MP4 en 72h
+      </motion.div>
+
+      {/* Floating badge — bottom left */}
+      <motion.div
+        className="oh-visual-badge oh-visual-badge--br"
+        initial={{ opacity: 0, scale: 0.85 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.5, ease: EASE, delay: 0.80 }}
+      >
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FF5A1F" strokeWidth="2.2" width="14" height="14">
+          <path d="M12 17.3l-6.18 3.6 1.64-7.03L2 9.24l7.19-.62L12 2l2.81 6.62 7.19.62-5.46 4.63 1.64 7.03z" fill="#FF5A1F" stroke="none"/>
+        </svg>
+        <span style={{ color: '#FF5A1F', fontWeight: 700 }}>+200</span> e-commerçants
+      </motion.div>
+    </motion.div>
+  )
+}
+
 const features = [
   {
     icon: (
@@ -68,12 +166,20 @@ export default function Hero() {
     <section className="oh" id="top">
       <div className="oh-bg" aria-hidden="true" />
 
+      {/* Aurora — animated ambient glow orbs */}
+      <div className="oh-aurora" aria-hidden="true">
+        <div className="oh-aurora-orb oh-aurora-orb--1" />
+        <div className="oh-aurora-orb oh-aurora-orb--2" />
+        <div className="oh-aurora-orb oh-aurora-orb--3" />
+      </div>
+
       {/* Tech lines — primary structural element, in foreground */}
       <div className="orbit-tlines oh-tlines" aria-hidden="true">
         <span className="orbit-tl v l"/><span className="orbit-tl v r"/>
         <span className="orbit-tl h t"/><span className="orbit-tl h b"/>
       </div>
 
+      <div className="oh-split">
       <div className="oh-wrap">
 
         {/* Badge */}
@@ -159,6 +265,12 @@ export default function Hero() {
         </motion.div>
 
       </div>
+
+        {/* Visual — desktop right column */}
+        <div className="oh-right">
+          <HeroVisual />
+        </div>
+      </div>{/* /oh-split */}
 
       {/* Feature grid */}
       <div className="oh-feats">

@@ -22,7 +22,7 @@
 @media (max-width: 900px) {
   :root {
     --orbit-section-py: 60px;
-    --orbit-section-px: 16px;
+    --orbit-section-px: 20px;
     --orbit-h2: 30px;
     --orbit-lead: 14px;
   }
@@ -520,8 +520,9 @@ body {
 }
 
 /* Align with content container edges (--orbit-max = 980px → half = 490px) */
-.orbit-tl.v.l { left: max(16px, calc(50% - 490px)); }
-.orbit-tl.v.r { right: max(16px, calc(50% - 490px)); }
+/* max(0px, …) → lines sit at screen edge on mobile, content padding creates visual gap */
+.orbit-tl.v.l { left: max(0px, calc(50% - 490px)); }
+.orbit-tl.v.r { right: max(0px, calc(50% - 490px)); }
 
 /* Orange streak — top to bottom, linear, consistent pace */
 .orbit-tl.v::after {
@@ -545,9 +546,7 @@ body {
   animation-delay: -2.5s;
 }
 
-/* Hero section: lines align with the 640px wrap */
-.oh .orbit-tl.v.l { left: max(0px, calc(50% - 320px)); }
-.oh .orbit-tl.v.r { right: max(0px, calc(50% - 320px)); }
+/* Hero: inherits global line rule (0px min → screen edge on mobile, 490px half on desktop) */
 
 /* ============================================================
    TYPOGRAPHY UTILITIES — shared mixed-opacity heading treatment
@@ -1575,7 +1574,7 @@ body {
 
 .orbit-previews {
   position: relative;
-  padding: 46px 14px;
+  padding: var(--orbit-section-py) var(--orbit-section-px);
   background: #111114;
   color: #fff;
   overflow: hidden;
@@ -1766,7 +1765,7 @@ body {
 }
 
 @media (max-width: 480px) {
-  .orbit-previews { padding: 38px 14px; }
+  .orbit-previews { padding: var(--orbit-section-py) var(--orbit-section-px); }
   .orbit-previews h2 { font-size: 22px; }
   .orbit-previews p.sub { font-size: 14px; }
 }
@@ -1964,7 +1963,7 @@ body {
 
 .orbit-why3 {
   position: relative;
-  padding: 72px 14px;
+  padding: var(--orbit-section-py) var(--orbit-section-px);
   background: #111114;
 }
 
@@ -2191,7 +2190,7 @@ body {
 }
 
 @media (max-width: 520px) {
-  .orbit-why3 { padding: 54px 14px; }
+  .orbit-why3 { padding: var(--orbit-section-py) var(--orbit-section-px); }
   .orbit-why3 .sub { font-size: 14px; }
   .orbit-why3 .grid { grid-template-columns: 1fr; }
   .orbit-why3 .card { border-radius: 18px; }
@@ -2977,6 +2976,836 @@ body {
    REDUCED MOTION
    ============================================================ */
 
+/* ============================================================
+   SCROLL PROGRESS BAR
+   ============================================================ */
+
+.scroll-progress-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #FF5A1F 0%, #FF7A47 100%);
+  transform-origin: left center;
+  z-index: 200;
+  pointer-events: none;
+  box-shadow: 0 0 8px rgba(255, 90, 31, 0.45);
+}
+
+/* ============================================================
+   GLOW CARD — interactive cursor glow
+   ============================================================ */
+
+.glow-card {
+  position: relative;
+  overflow: hidden;
+  --gx: 50%;
+  --gy: 50%;
+  --glow-opacity: 0;
+}
+
+.glow-card::before {
+  content: '';
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  background: radial-gradient(circle, rgba(255, 90, 31, 0.10) 0%, transparent 70%);
+  left: var(--gx);
+  top: var(--gy);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: var(--glow-opacity, 0);
+  transition: opacity 0.35s ease;
+  border-radius: 50%;
+  z-index: 0;
+}
+
+.glow-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ============================================================
+   SYSTEM — numbered grid (replaces card big / card)
+   ============================================================ */
+
+.sys-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.06);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.sys-card {
+  background: #0E1014;
+  padding: 32px 28px 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  transition: background 0.2s ease;
+  cursor: default;
+}
+
+.sys-card:hover {
+  background: #111418;
+}
+
+.sys-step-num {
+  font-family: var(--font-display), 'Space Grotesk', system-ui, sans-serif;
+  font-size: 52px;
+  font-weight: 700;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: rgba(255, 90, 31, 0.12);
+  user-select: none;
+  transition: color 0.3s ease;
+}
+
+.sys-card:hover .sys-step-num {
+  color: rgba(255, 90, 31, 0.22);
+}
+
+.sys-body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sys-card .kicker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #FF5A1F;
+}
+
+.sys-card .title {
+  font-family: var(--font-display), 'Space Grotesk', system-ui, sans-serif;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  color: #F0EDE8;
+  margin: 0;
+}
+
+.sys-card .p {
+  font-size: 13.5px;
+  color: rgba(255,255,255,0.55);
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 640px) {
+  .sys-grid {
+    grid-template-columns: 1fr;
+  }
+  .sys-card {
+    padding: 24px 20px;
+  }
+  .sys-step-num {
+    font-size: 40px;
+  }
+}
+
+/* ============================================================
+   NAV — MOBILE HAMBURGER + PANEL
+   ============================================================ */
+
+/* Burger button — hidden on desktop */
+.nav-burger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  padding: 6px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 8px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.nav-burger span {
+  display: block;
+  height: 1.5px;
+  background: rgba(255,255,255,0.75);
+  border-radius: 2px;
+  transform-origin: center;
+  transition: transform 0.22s ease, opacity 0.22s ease, width 0.22s ease;
+}
+
+.nav-burger.open span:nth-child(1) {
+  transform: translateY(6.5px) rotate(45deg);
+}
+.nav-burger.open span:nth-child(2) {
+  opacity: 0;
+  transform: scaleX(0);
+}
+.nav-burger.open span:nth-child(3) {
+  transform: translateY(-6.5px) rotate(-45deg);
+}
+
+/* Backdrop */
+.nav-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background: rgba(0,0,0,0.55);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+/* Mobile panel */
+.nav-mobile-panel {
+  position: fixed;
+  top: 58px;
+  left: 12px;
+  right: 12px;
+  z-index: 95;
+  background: rgba(14, 16, 20, 0.97);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.45),
+    0 0 0 1px rgba(255,90,31,0.08);
+}
+
+.nav-mobile-links {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.nav-mobile-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 13px 16px;
+  border-radius: 8px;
+  color: rgba(255,255,255,0.75);
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.nav-mobile-link:hover,
+.nav-mobile-link:active {
+  background: rgba(255,255,255,0.07);
+  color: #F0EDE8;
+}
+
+.nav-mobile-link svg {
+  opacity: 0.35;
+  flex-shrink: 0;
+}
+
+.nav-mobile-cta {
+  padding: 8px;
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+.nav-mobile-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  padding: 13px 20px;
+  background: #FF5A1F;
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 650;
+  letter-spacing: -0.01em;
+  border-radius: 8px;
+  transition: background 0.15s ease;
+}
+
+.nav-mobile-btn:hover {
+  background: #e04d18;
+}
+
+@media (max-width: 767px) {
+  .nav-burger { display: flex; }
+}
+
+/* ============================================================
+   CTA GUARANTEE — SVG icon fix
+   ============================================================ */
+
+.cta-g-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  color: #FF5A1F;
+}
+
+.cta-g-icon svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* ============================================================
+   SPACE GROTESK — apply to headings via display font
+   ============================================================ */
+
+h1, h2, h3 {
+  font-family: var(--font-display), 'Space Grotesk', system-ui, sans-serif;
+}
+
 @media (prefers-reduced-motion: reduce) {
   * { animation: none !important; transition: none !important; }
+}
+
+/* ============================================================
+   HERO SPLIT LAYOUT — desktop two-column
+   ============================================================ */
+
+/* Split container — stacks on mobile, side-by-side on desktop */
+.oh-split {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  position: relative;
+  z-index: 2;
+}
+
+/* Right column: visual — hidden on mobile, shown on desktop */
+.oh-right {
+  display: none;
+}
+
+@media (min-width: 960px) {
+  .oh-split {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 0;
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 100px 32px 40px;
+  }
+
+  /* Left column: text content */
+  .oh-split .oh-wrap {
+    max-width: 520px;
+    padding: 0;
+    text-align: left;
+    align-items: flex-start;
+    flex: 0 0 auto;
+    margin: 0;
+  }
+
+  /* Override centered flex on proof/CTA on desktop */
+  .oh-split .oh-proof { justify-content: flex-start; }
+  .oh-split .oh-cta-wrap { align-items: flex-start; flex-direction: row; }
+
+  /* Right column: show on desktop */
+  .oh-right {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 auto;
+    width: 380px;
+    padding-left: 48px;
+  }
+
+  /* Align tech lines with split layout width */
+  .oh .orbit-tl.v.l { left: max(0px, calc(50% - 490px)); }
+  .oh .orbit-tl.v.r { right: max(0px, calc(50% - 490px)); }
+
+  /* Feature grid: use wider max on desktop */
+  .oh-feats-inner { max-width: 900px; grid-template-columns: repeat(3, 1fr); }
+  .oh-feat:nth-child(even) { border-right: 1px solid rgba(255,255,255,0.07); }
+  .oh-feat:nth-child(3n) { border-right: none; }
+  .oh-feat:nth-last-child(-n+3) { border-bottom: none; }
+  .oh-feat:nth-last-child(-n+2) { border-bottom: 1px solid rgba(255,255,255,0.07); }
+}
+
+/* ============================================================
+   HERO VISUAL — delivered UGC mock card
+   ============================================================ */
+
+.oh-visual-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+/* Radial orange glow behind card */
+.oh-visual-glow {
+  position: absolute;
+  inset: -40px;
+  background: radial-gradient(ellipse 70% 70% at 50% 50%, rgba(255,90,31,0.14) 0%, transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Main delivery card */
+.oh-visual-card {
+  position: relative;
+  z-index: 1;
+  background: #0E1014;
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 18px;
+  padding: 18px;
+  width: 240px;
+  box-shadow:
+    0 4px 8px rgba(0,0,0,0.20),
+    0 16px 48px rgba(255,90,31,0.10),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+/* Status top bar */
+.oh-vc-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.oh-vc-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.85);
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.10);
+  padding: 4px 10px;
+  border-radius: 999px;
+  letter-spacing: 0.2px;
+}
+
+.oh-vc-status-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: #4ade80;
+  box-shadow: 0 0 8px rgba(74,222,128,0.6);
+  flex: 0 0 auto;
+  animation: orbitNavPulse 2s ease-in-out infinite;
+}
+
+.oh-vc-time {
+  font-size: 11px;
+  font-weight: 700;
+  color: #FF5A1F;
+  letter-spacing: 0.5px;
+}
+
+/* Phone frame */
+.oh-vc-phone {
+  position: relative;
+  background: #050507;
+  border: 1.5px solid rgba(255,255,255,0.12);
+  border-radius: 14px;
+  overflow: hidden;
+  aspect-ratio: 9 / 16;
+}
+
+.oh-vc-notch {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 32px;
+  height: 5px;
+  background: rgba(255,255,255,0.15);
+  border-radius: 999px;
+  z-index: 2;
+}
+
+.oh-vc-screen {
+  width: 100%;
+  height: 100%;
+}
+
+.oh-vc-video {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.oh-vc-video-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(160deg, #1a0e08 0%, #0c0c10 40%, #0a0808 100%),
+    radial-gradient(ellipse 60% 80% at 50% 30%, rgba(255,90,31,0.15) 0%, transparent 70%);
+}
+
+/* Play button */
+.oh-vc-play {
+  position: relative;
+  z-index: 1;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  background: rgba(255,90,31,0.18);
+  border: 1.5px solid rgba(255,90,31,0.45);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #FF7A47;
+  backdrop-filter: blur(4px);
+}
+
+/* UGC label bottom overlay */
+.oh-vc-label {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  z-index: 2;
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.70);
+  background: rgba(0,0,0,0.55);
+  border: 1px solid rgba(255,255,255,0.12);
+  padding: 3px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+  backdrop-filter: blur(6px);
+}
+
+/* Meta row */
+.oh-vc-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.oh-vc-pack {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.88);
+  letter-spacing: -0.1px;
+}
+
+.oh-vc-count {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  color: rgba(255,255,255,0.42);
+}
+
+/* Footer */
+.oh-vc-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 10px;
+  border-top: 1px solid rgba(255,255,255,0.07);
+}
+
+.oh-vc-brand {
+  font-size: 10px;
+  font-weight: 700;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+}
+
+.oh-vc-check {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 10px;
+  color: #4ade80;
+  font-weight: 500;
+}
+
+/* Floating badges */
+.oh-visual-badge {
+  position: absolute;
+  top: -18px;
+  right: -18px;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(14,16,20,0.92);
+  border: 1px solid rgba(255,255,255,0.14);
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.82);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.28);
+  white-space: nowrap;
+}
+
+.oh-visual-badge--br {
+  top: auto;
+  right: auto;
+  bottom: -18px;
+  left: -18px;
+}
+
+/* ============================================================
+   FIX — Missing `pulse` keyframe (referenced in CTA section)
+   ============================================================ */
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.55; }
+}
+
+/* ============================================================
+   FIX — Featured pack: orange brand (was off-brand green)
+   ============================================================ */
+
+.orbit-packs .featured {
+  border-color: rgba(255,90,31,0.32) !important;
+  box-shadow:
+    0 18px 50px rgba(0,0,0,0.55),
+    0 0 0 1px rgba(255,90,31,0.08) inset,
+    0 0 50px rgba(255,90,31,0.12) !important;
+  animation: orbitFeaturedPulse 3.5s ease-in-out infinite;
+}
+
+.orbit-packs .featured .plan-tag {
+  border-color: rgba(255,90,31,0.25) !important;
+  background: rgba(255,90,31,0.08) !important;
+  color: rgba(255,160,100,0.95) !important;
+}
+
+@keyframes orbitFeaturedPulse {
+  0%, 100% {
+    box-shadow:
+      0 18px 50px rgba(0,0,0,0.55),
+      0 0 0 1px rgba(255,90,31,0.25),
+      0 0 40px rgba(255,90,31,0.10);
+  }
+  50% {
+    box-shadow:
+      0 18px 50px rgba(0,0,0,0.55),
+      0 0 0 1px rgba(255,90,31,0.48),
+      0 0 70px rgba(255,90,31,0.20);
+  }
+}
+
+/* ============================================================
+   AURORA — Animated hero background orbs
+   ============================================================ */
+
+@keyframes orbitAurora1 {
+  0%, 100% { transform: translate(0%, 0%) scale(1.0); opacity: 0.7; }
+  30%      { transform: translate(4%, -6%) scale(1.10); opacity: 0.9; }
+  65%      { transform: translate(-3%, 4%) scale(0.95); opacity: 0.75; }
+}
+
+@keyframes orbitAurora2 {
+  0%, 100% { transform: translate(0%, 0%) scale(1.0); opacity: 0.45; }
+  40%      { transform: translate(-5%, 5%) scale(1.08); opacity: 0.65; }
+  75%      { transform: translate(3%, -3%) scale(0.96); opacity: 0.50; }
+}
+
+@keyframes orbitAurora3 {
+  0%, 100% { transform: translate(0%, 0%) scale(1.0); opacity: 0.35; }
+  50%      { transform: translate(-2%, -4%) scale(1.05); opacity: 0.55; }
+}
+
+.oh-aurora {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.oh-aurora-orb {
+  position: absolute;
+  border-radius: 50%;
+  will-change: transform, opacity;
+}
+
+/* Primary orange orb — top left */
+.oh-aurora-orb--1 {
+  width: min(70vw, 700px);
+  height: min(50vw, 500px);
+  top: -15%;
+  left: -8%;
+  background: radial-gradient(circle at 40% 40%,
+    rgba(255,90,31,0.22) 0%,
+    rgba(255,90,31,0.06) 50%,
+    transparent 70%);
+  filter: blur(80px);
+  animation: orbitAurora1 20s ease-in-out infinite;
+}
+
+/* Purple accent orb — top right */
+.oh-aurora-orb--2 {
+  width: min(60vw, 600px);
+  height: min(45vw, 450px);
+  top: 5%;
+  right: -10%;
+  background: radial-gradient(circle at 60% 40%,
+    rgba(130,50,220,0.10) 0%,
+    rgba(100,40,200,0.04) 50%,
+    transparent 70%);
+  filter: blur(100px);
+  animation: orbitAurora2 26s ease-in-out infinite;
+}
+
+/* Secondary orange orb — bottom center */
+.oh-aurora-orb--3 {
+  width: min(55vw, 550px);
+  height: min(40vw, 400px);
+  bottom: 0;
+  left: 25%;
+  background: radial-gradient(circle at 50% 60%,
+    rgba(255,90,31,0.12) 0%,
+    transparent 70%);
+  filter: blur(90px);
+  animation: orbitAurora3 30s ease-in-out infinite;
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .oh-aurora-orb { animation: none !important; }
+}
+
+/* ============================================================
+   SHIMMER — Animated light sweep on CTA buttons
+   ============================================================ */
+
+@keyframes orbitShimmer {
+  0%   { transform: translateX(-100%) skewX(-12deg); }
+  100% { transform: translateX(350%) skewX(-12deg); }
+}
+
+/* Hero white CTA shimmer */
+.oh-cta {
+  position: relative;
+  overflow: hidden;
+}
+
+.oh-cta::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  bottom: -50%;
+  left: 0;
+  width: 35%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(0,0,0,0.055) 50%,
+    transparent 100%
+  );
+  animation: orbitShimmer 5s ease-in-out 2.5s infinite;
+  pointer-events: none;
+}
+
+/* Final orange CTA shimmer */
+.cta-btn-primary {
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-btn-primary::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  bottom: -50%;
+  left: 0;
+  width: 35%;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(255,255,255,0.20) 50%,
+    transparent 100%
+  );
+  animation: orbitShimmer 5s ease-in-out 3.5s infinite;
+  pointer-events: none;
+}
+
+/* ============================================================
+   GRAIN TEXTURE — Subtle film grain overlay
+   ============================================================ */
+
+.orbit-grain {
+  position: fixed;
+  inset: -100px;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.030;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+  background-repeat: repeat;
+}
+
+/* ============================================================
+   ENHANCED CARD HOVER GLOW — Orange micro-glow on hover
+   ============================================================ */
+
+.orbit-why3 .card {
+  transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+}
+
+.orbit-why3 .card:hover {
+  border-color: rgba(255,90,31,0.18) !important;
+  box-shadow:
+    0 8px 40px rgba(0,0,0,0.30),
+    0 0 0 1px rgba(255,90,31,0.08) !important;
+}
+
+.orbit-problem .problem-card {
+  transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+}
+
+.orbit-problem .problem-card:hover {
+  border-color: rgba(255,90,31,0.15) !important;
+  box-shadow:
+    0 8px 32px rgba(0,0,0,0.25),
+    0 0 0 1px rgba(255,90,31,0.06) !important;
+}
+
+/* ============================================================
+   HERO H1 — Subtle gradient on bright words
+   ============================================================ */
+
+.oh-h1 .oh-bright {
+  background: linear-gradient(145deg, #ffffff 0%, rgba(255,240,230,0.92) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ============================================================
+   SCROLL PROGRESS — Enhanced glow
+   ============================================================ */
+
+.scroll-progress-bar {
+  box-shadow: 0 0 12px rgba(255,90,31,0.55), 0 0 4px rgba(255,90,31,0.30) !important;
 }

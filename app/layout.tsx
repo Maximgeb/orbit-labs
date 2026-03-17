@@ -1,10 +1,17 @@
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Inter, Space_Grotesk } from 'next/font/google'
 import './globals.css'
 
 const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter',
+  display: 'swap',
+})
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ['latin'],
+  variable: '--font-display',
+  weight: ['500', '600', '700'],
   display: 'swap',
 })
 
@@ -25,11 +32,15 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="fr" className={inter.variable}>
+    <html lang="fr" className={`${inter.variable} ${spaceGrotesk.variable}`}>
       <head>
         <link rel="icon" href="/logos/favicon.png" type="image/png" />
       </head>
-      <body>{children}</body>
+      <body>
+        {/* Film grain — premium editorial texture */}
+        <div className="orbit-grain" aria-hidden="true" />
+        {children}
+      </body>
     </html>
   )
 }

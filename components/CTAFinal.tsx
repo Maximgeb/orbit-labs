@@ -5,10 +5,42 @@ import { motion } from 'framer-motion'
 const EASE = [0.22, 1, 0.36, 1] as const
 
 const guarantees = [
-  { icon: '🔒', label: 'Paiement sécurisé' },
-  { icon: '⚡', label: 'Livraison 24–72h' },
-  { icon: '↩️', label: '1 retouche incluse' },
-  { icon: '🚫', label: 'Sans engagement' },
+  {
+    label: 'Paiement sécurisé',
+    icon: (
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M10 1.5L2.5 5v5c0 4.14 3.2 8.02 7.5 9 4.3-.98 7.5-4.86 7.5-9V5L10 1.5z"/>
+        <path d="M7 10l2 2 4-4"/>
+      </svg>
+    ),
+  },
+  {
+    label: 'Livraison 24–72h',
+    icon: (
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <circle cx="10" cy="10" r="7.5"/>
+        <path d="M10 5.5v4.5l3 2"/>
+      </svg>
+    ),
+  },
+  {
+    label: '1 retouche incluse',
+    icon: (
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M3 10a7 7 0 1 0 7-7A7 7 0 0 0 3.5 5"/>
+        <path d="M3 3v4h4"/>
+      </svg>
+    ),
+  },
+  {
+    label: 'Sans engagement',
+    icon: (
+      <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M5 15L15 5M5 5l10 10"/>
+        <rect x="1.5" y="1.5" width="17" height="17" rx="4"/>
+      </svg>
+    ),
+  },
 ]
 
 export default function CTAFinal() {
@@ -77,7 +109,7 @@ export default function CTAFinal() {
           </a>
         </motion.div>
 
-        {/* Guarantee bar */}
+        {/* Guarantee bar — SVG icons, no emojis */}
         <motion.div
           className="cta-guarantees"
           initial={{ opacity: 0 }}
@@ -87,7 +119,7 @@ export default function CTAFinal() {
         >
           {guarantees.map((g, i) => (
             <div className="cta-guarantee" key={i}>
-              <span className="cta-g-icon">{g.icon}</span>
+              <span className="cta-g-icon" aria-hidden="true">{g.icon}</span>
               <span className="cta-g-label">{g.label}</span>
             </div>
           ))}

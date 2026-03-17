@@ -22,7 +22,7 @@ const config: Config = {
       },
       fontFamily: {
         sans: ['var(--font-inter)', 'system-ui', 'sans-serif'],
-        display: ['var(--font-geist)', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display)', 'Space Grotesk', 'system-ui', 'sans-serif'],
       },
       letterSpacing: {
         'tight-h': '-0.03em',
