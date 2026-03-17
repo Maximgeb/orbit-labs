@@ -2,6 +2,7 @@
 
 import Image from 'next/image'
 import { motion } from 'framer-motion'
+import { AnimatedHeroHeadline } from './ui/animated-hero'
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
@@ -193,19 +194,8 @@ export default function Hero() {
           UGC IA prêts pub · dès 57€/vidéo · livraison 24–72h
         </motion.div>
 
-        {/* H1 */}
-        <motion.h1
-          className="oh-h1"
-          initial={{ opacity: 0, y: 22 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
-        >
-          <span className="oh-dim">Ton agence UGC te livre</span><br />
-          <span className="oh-dim">en 3 semaines.</span>{' '}
-          <span className="oh-bright">Nous en 72h.</span><br />
-          <span className="oh-dim">Pour</span>{' '}
-          <span className="oh-bright">2× moins cher.</span>
-        </motion.h1>
+        {/* H1 — animated rotating benefit word */}
+        <AnimatedHeroHeadline />
 
         {/* Sub */}
         <motion.p

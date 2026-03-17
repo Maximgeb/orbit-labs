@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'framer-motion'
+import AnimatedShaderBackground from './ui/AnimatedShaderBackground'
 
 const EASE = [0.22, 1, 0.36, 1] as const
 
@@ -46,6 +47,8 @@ const guarantees = [
 export default function CTAFinal() {
   return (
     <section className="orbit-cta" id="order">
+      {/* WebGL aurora shader — full section background */}
+      <AnimatedShaderBackground />
       <div className="cta-glow" aria-hidden="true" />
       <div className="orbit-tlines" aria-hidden="true">
         <span className="orbit-tl v l"/><span className="orbit-tl v r"/>

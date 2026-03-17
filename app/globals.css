@@ -3572,6 +3572,46 @@ h1, h2, h3 {
 }
 
 /* ============================================================
+   SHADER BACKGROUND — WebGL canvas fills section
+   ============================================================ */
+
+.orbit-shader-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.orbit-shader-bg canvas {
+  display: block;
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover;
+}
+
+/* ============================================================
+   ANIMATED HERO HEADLINE — Rotating benefit word
+   ============================================================ */
+
+.oh-h1-rotate-wrap {
+  position: relative;
+  display: inline-block;
+  /* Reserve vertical space for tallest word */
+  min-width: 9ch;
+  vertical-align: bottom;
+  overflow: hidden;
+  height: 1.14em;
+}
+
+.oh-h1-rotate-word {
+  position: absolute;
+  left: 0;
+  top: 0;
+  white-space: nowrap;
+  display: inline-block;
+}
+
+/* ============================================================
    FIX — Missing `pulse` keyframe (referenced in CTA section)
    ============================================================ */
 
