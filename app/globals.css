@@ -3654,6 +3654,23 @@ h1, h2, h3 {
 }
 
 /* ============================================================
+   PERFORMANCE — content-visibility on below-fold sections
+   ============================================================ */
+
+.orbit-problem,
+.orbit-why3,
+.orbit-system,
+.orbit-process,
+.orbit-packs,
+.orbit-testimonials,
+.orbit-previews,
+.orbit-trust,
+.orbit-faq {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
+}
+
+/* ============================================================
    AURORA — Animated hero background orbs
    ============================================================ */
 
@@ -3695,11 +3712,12 @@ h1, h2, h3 {
   top: -15%;
   left: -8%;
   background: radial-gradient(circle at 40% 40%,
-    rgba(255,90,31,0.22) 0%,
-    rgba(255,90,31,0.06) 50%,
+    rgba(255,90,31,0.20) 0%,
+    rgba(255,90,31,0.05) 50%,
     transparent 70%);
-  filter: blur(80px);
-  animation: orbitAurora1 20s ease-in-out infinite;
+  filter: blur(55px);
+  transform: translateZ(0);
+  animation: orbitAurora1 24s ease-in-out infinite;
 }
 
 /* Purple accent orb — top right */
@@ -3709,11 +3727,12 @@ h1, h2, h3 {
   top: 5%;
   right: -10%;
   background: radial-gradient(circle at 60% 40%,
-    rgba(130,50,220,0.10) 0%,
-    rgba(100,40,200,0.04) 50%,
+    rgba(130,50,220,0.08) 0%,
+    rgba(100,40,200,0.03) 50%,
     transparent 70%);
-  filter: blur(100px);
-  animation: orbitAurora2 26s ease-in-out infinite;
+  filter: blur(65px);
+  transform: translateZ(0);
+  animation: orbitAurora2 32s ease-in-out infinite;
 }
 
 /* Secondary orange orb — bottom center */
@@ -3723,15 +3742,19 @@ h1, h2, h3 {
   bottom: 0;
   left: 25%;
   background: radial-gradient(circle at 50% 60%,
-    rgba(255,90,31,0.12) 0%,
+    rgba(255,90,31,0.10) 0%,
     transparent 70%);
-  filter: blur(90px);
-  animation: orbitAurora3 30s ease-in-out infinite;
+  filter: blur(60px);
+  transform: translateZ(0);
+  animation: orbitAurora3 38s ease-in-out infinite;
 }
 
-/* Respect reduced motion */
+/* Respect reduced motion — disable all expensive animations */
 @media (prefers-reduced-motion: reduce) {
   .oh-aurora-orb { animation: none !important; }
+  .oh-cta::after,
+  .cta-btn-primary::after { animation: none !important; }
+  .orbit-packs .featured { animation: none !important; }
 }
 
 /* ============================================================
