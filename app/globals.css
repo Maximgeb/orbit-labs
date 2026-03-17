@@ -3871,3 +3871,531 @@ h1, h2, h3 {
 .scroll-progress-bar {
   box-shadow: 0 0 12px rgba(255,90,31,0.55), 0 0 4px rgba(255,90,31,0.30) !important;
 }
+
+/* ============================================================
+   PRODUCT DEMO — 3-scene animated loop
+   ============================================================ */
+
+.orbit-pdemo {
+  position: relative;
+  padding: 96px 0 112px;
+  background: #080808;
+  overflow: hidden;
+}
+
+.orbit-pdemo .fade {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(255,90,31,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* ── Header ─────────────────────────────────────── */
+.pdemo-head {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.pdemo-head .pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: rgba(255,90,31,0.10);
+  border: 1px solid rgba(255,90,31,0.22);
+  border-radius: 99px;
+  padding: 5px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #FF5A1F;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+}
+
+.pdemo-head .pill .dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: #FF5A1F;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+
+.pdemo-head .heading {
+  font-size: clamp(26px, 4vw, 40px);
+  font-weight: 700;
+  line-height: 1.18;
+  letter-spacing: -0.03em;
+  margin: 0 auto 14px;
+  max-width: 600px;
+}
+
+.pdemo-head .heading .s-dim  { color: rgba(255,255,255,0.45); }
+.pdemo-head .heading .s-bright { color: #fff; }
+
+.pdemo-head .sub {
+  font-size: 15px;
+  color: rgba(255,255,255,0.50);
+  line-height: 1.65;
+  max-width: 480px;
+  margin: 0 auto;
+}
+
+/* ── Step indicators ────────────────────────────── */
+.pdemo-steps-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin-bottom: 28px;
+}
+
+.pdemo-nav-step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 16px;
+  border-radius: 8px;
+  transition: background .25s ease, color .25s ease;
+  opacity: 0.40;
+}
+
+.pdemo-nav-step.active {
+  opacity: 1;
+  background: rgba(255,90,31,0.10);
+}
+
+.pdemo-nav-step.done {
+  opacity: 0.65;
+}
+
+.pdemo-nav-num {
+  font-size: 11px;
+  font-weight: 700;
+  color: #FF5A1F;
+  font-variant-numeric: tabular-nums;
+}
+
+.pdemo-nav-label {
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.80);
+}
+
+/* Separator between nav steps */
+.pdemo-nav-step + .pdemo-nav-step::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: rgba(255,255,255,0.12);
+  margin-right: 16px;
+}
+
+/* ── Card wrapper ───────────────────────────────── */
+.pdemo-card-wrap {
+  display: flex;
+  justify-content: center;
+  padding: 0 16px;
+}
+
+.pdemo-card {
+  width: 100%;
+  max-width: 480px;
+  min-height: 320px;
+  background: #111;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.30),
+    0 16px 48px rgba(0,0,0,0.40),
+    0 0 0 1px rgba(255,90,31,0.04);
+  position: relative;
+}
+
+/* ── Scene base ─────────────────────────────────── */
+.pdemo-scene {
+  padding: 0 0 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Window bar ─────────────────────────────────── */
+.pdemo-winbar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.02);
+}
+
+.pdemo-dot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+.pdemo-dot.r { background: #FF5F57; }
+.pdemo-dot.y { background: #FEBC2E; }
+.pdemo-dot.g { background: #28C840; }
+
+.pdemo-wintitle {
+  flex: 1;
+  font-size: 12px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.50);
+  margin-left: 6px;
+  letter-spacing: 0.01em;
+}
+
+/* Live badge */
+.pdemo-live {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: rgba(255,255,255,0.55);
+  background: rgba(255,255,255,0.06);
+  border-radius: 99px;
+  padding: 3px 9px;
+}
+
+.pdemo-live--orange { color: #FF5A1F; background: rgba(255,90,31,0.10); }
+.pdemo-live--green  { color: #22c55e; background: rgba(34,197,94,0.10); }
+
+.pdemo-live-dot {
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.45);
+  animation: pulse 1.8s ease-in-out infinite;
+}
+.pdemo-live-dot--orange { background: #FF5A1F; }
+.pdemo-live-dot--green  { background: #22c55e; }
+
+/* ── Brief scene — form fields ──────────────────── */
+.pdemo-fields {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 6px 16px 0;
+}
+
+.pdemo-field {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+
+.pdemo-field:last-child { border-bottom: none; }
+
+.pdemo-flabel {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.35);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  min-width: 60px;
+  flex-shrink: 0;
+}
+
+.pdemo-fval {
+  font-size: 14px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.88);
+  font-family: 'SF Mono', 'Fira Code', monospace;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  min-height: 20px;
+}
+
+.pdemo-cursor {
+  display: inline-block;
+  width: 2px;
+  height: 14px;
+  background: #FF5A1F;
+  border-radius: 1px;
+  animation: pulse .9s ease-in-out infinite;
+  margin-left: 1px;
+  vertical-align: middle;
+}
+
+.pdemo-fplaceholder {
+  color: rgba(255,255,255,0.18);
+}
+
+/* Separator */
+.pdemo-sep {
+  height: 1px;
+  background: rgba(255,255,255,0.06);
+  margin: 4px 0;
+}
+
+/* Submit button */
+.pdemo-submit {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  margin: 14px 16px 4px;
+  padding: 11px 18px;
+  border-radius: 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #fff;
+  border: none;
+  cursor: default;
+  letter-spacing: 0.01em;
+  transition: background .28s ease;
+}
+
+/* ── Processing scene — steps ───────────────────── */
+.pdemo-steps {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 10px 16px 4px;
+}
+
+.pdemo-step {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border-radius: 8px;
+  transition: background .2s ease;
+}
+
+.pdemo-step--active { background: rgba(255,90,31,0.07); }
+
+.pdemo-step-ico {
+  width: 18px; height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: rgba(255,255,255,0.35);
+}
+
+.pdemo-step--done .pdemo-step-ico { color: #22c55e; }
+.pdemo-step--active .pdemo-step-ico { color: #FF5A1F; }
+
+.pdemo-step-label {
+  flex: 1;
+  font-size: 13px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.55);
+  transition: color .2s ease;
+}
+
+.pdemo-step--done .pdemo-step-label   { color: rgba(255,255,255,0.80); }
+.pdemo-step--active .pdemo-step-label { color: rgba(255,255,255,0.90); }
+
+.pdemo-step-time {
+  font-size: 11px;
+  color: #22c55e;
+  font-weight: 600;
+}
+
+.pdemo-step-dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.20);
+}
+
+/* Spinner animation */
+@keyframes pdemoSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+.pdemo-spinner {
+  animation: pdemoSpin .75s linear infinite;
+  transform-origin: center;
+}
+
+/* Progress bar */
+.pdemo-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px 4px;
+}
+
+.pdemo-progress-track {
+  flex: 1;
+  height: 4px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 99px;
+  overflow: hidden;
+}
+
+.pdemo-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #FF5A1F, #FF8C5A);
+  border-radius: 99px;
+}
+
+.pdemo-progress-pct {
+  font-size: 12px;
+  font-weight: 600;
+  color: rgba(255,255,255,0.50);
+  font-variant-numeric: tabular-nums;
+  min-width: 34px;
+  text-align: right;
+}
+
+/* ── Delivered scene — video cards ──────────────── */
+.pdemo-videos {
+  display: flex;
+  gap: 10px;
+  padding: 12px 16px 4px;
+  justify-content: center;
+}
+
+.pdemo-video-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  flex: 1;
+}
+
+.pdemo-phone-screen {
+  width: 100%;
+  aspect-ratio: 9 / 16;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.10);
+  background: #181818;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pdemo-phone-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.pdemo-play-ico {
+  position: relative;
+  z-index: 2;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0,0,0,0.45);
+}
+
+.pdemo-video-tag {
+  position: absolute;
+  bottom: 6px;
+  left: 6px;
+  right: 6px;
+  font-size: 9px;
+  font-weight: 700;
+  text-align: center;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.pdemo-video-label {
+  font-size: 11px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.50);
+}
+
+/* Stats row */
+.pdemo-stats {
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  padding: 10px 16px 0;
+}
+
+.pdemo-stat {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 8px 4px;
+  border-right: 1px solid rgba(255,255,255,0.07);
+}
+
+.pdemo-stat:last-child { border-right: none; }
+
+.pdemo-stat-val {
+  font-size: 18px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.02em;
+}
+
+.pdemo-stat-lbl {
+  font-size: 10px;
+  font-weight: 500;
+  color: rgba(255,255,255,0.40);
+  letter-spacing: 0.03em;
+}
+
+/* Delivered badge */
+.pdemo-delivered-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin: 10px 16px 0;
+  padding: 9px 14px;
+  background: rgba(34,197,94,0.08);
+  border: 1px solid rgba(34,197,94,0.18);
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #22c55e;
+}
+
+/* ── Dot navigation ─────────────────────────────── */
+.pdemo-dots-nav {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 20px;
+}
+
+.pdemo-dot-btn {
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.18);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: background .2s ease, transform .2s ease;
+}
+
+.pdemo-dot-btn.active {
+  background: #FF5A1F;
+  transform: scale(1.25);
+}
+
+/* ── Tech lines ─────────────────────────────────── */
+.orbit-pdemo .orbit-tlines { pointer-events: none; }
+
+/* ── Responsive ─────────────────────────────────── */
+@media (max-width: 480px) {
+  .orbit-pdemo { padding: 64px 0 80px; }
+  .pdemo-card  { border-radius: 12px; }
+  .pdemo-steps-nav { gap: 0; }
+  .pdemo-nav-label { display: none; }
+  .pdemo-nav-step  { padding: 7px 10px; }
+}

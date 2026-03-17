@@ -4,6 +4,7 @@ import Hero from '@/components/Hero'
 import Problem from '@/components/Problem'
 import Why from '@/components/Why'
 import Process from '@/components/Process'
+import ProductDemo from '@/components/ProductDemo'
 import System from '@/components/System'
 import Examples from '@/components/Examples'
 import Packs from '@/components/Packs'
@@ -34,6 +35,9 @@ export default function Home() {
 
         {/* 5. Process — comment ça marche */}
         <Process />
+
+        {/* 5b. Product Demo — brief → production → livraison */}
+        <ProductDemo />
 
         {/* 6. Offers — pricing / packs */}
         <Packs />
