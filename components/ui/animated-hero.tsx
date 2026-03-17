@@ -14,10 +14,10 @@ export function AnimatedHeroHeadline() {
   const [idx, setIdx] = useState(0)
 
   const benefits = useMemo(() => [
-    'en 72h.',
-    'dès 57€.',
-    'prêtes pub.',
+    'qui convertissent.',
+    'livrées en 72h.',
     'hooks-first.',
+    'prêtes à scaler.',
   ], [])
 
   useEffect(() => {
@@ -38,7 +38,7 @@ export function AnimatedHeroHeadline() {
       <span className="oh-bright">Des créas UGC IA</span>
       <br />
 
-      {/* Line 2 — rotating benefit, short & punchy */}
+      {/* Line 2 — rotating qualitative benefit */}
       <span className="oh-h1-rotate-wrap" aria-live="polite">
         {benefits.map((word, i) => (
           <motion.span

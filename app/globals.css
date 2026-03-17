@@ -3596,7 +3596,7 @@ h1, h2, h3 {
 .oh-h1-rotate-wrap {
   position: relative;
   display: inline-block;
-  min-width: 7ch;
+  min-width: 14ch;
   vertical-align: bottom;
   overflow: hidden;
   height: 1.14em;

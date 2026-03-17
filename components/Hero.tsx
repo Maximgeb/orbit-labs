@@ -204,7 +204,8 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, ease: EASE, delay: 0.18 }}
         >
-          Brief en 2 min · MP4 prêts <strong>Meta &amp; TikTok</strong> · Livraison Drive.
+          Brief en 2 minutes. <strong>MP4 prêts Meta &amp; TikTok</strong> livrés en 24 à 72h.{' '}
+          Dès 57€/vidéo — zéro logistique, zéro contrat.
         </motion.p>
 
         {/* CTA */}
