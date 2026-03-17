@@ -3596,8 +3596,7 @@ h1, h2, h3 {
 .oh-h1-rotate-wrap {
   position: relative;
   display: inline-block;
-  /* Reserve vertical space for tallest word */
-  min-width: 9ch;
+  min-width: 7ch;
   vertical-align: bottom;
   overflow: hidden;
   height: 1.14em;

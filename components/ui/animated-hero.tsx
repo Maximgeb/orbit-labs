@@ -14,11 +14,10 @@ export function AnimatedHeroHeadline() {
   const [idx, setIdx] = useState(0)
 
   const benefits = useMemo(() => [
-    '72h',
-    '57€/vidéo',
-    'zéro logistique',
-    'hooks-first',
-    '10× plus vite',
+    'en 72h.',
+    'dès 57€.',
+    'prêtes pub.',
+    'hooks-first.',
   ], [])
 
   useEffect(() => {
@@ -35,36 +34,29 @@ export function AnimatedHeroHeadline() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: EASE, delay: 0.1 }}
     >
-      {/* Line 1 — static contrast hook */}
-      <span className="oh-dim">Ton agence UGC :</span>{' '}
-      <span className="oh-bright">3 semaines.</span>
+      {/* Line 1 — what it is, instantly */}
+      <span className="oh-bright">Des créas UGC IA</span>
       <br />
 
-      {/* Line 2 — rotating animated benefit */}
-      <span className="oh-dim">Orbit Labs :</span>{' '}
+      {/* Line 2 — rotating benefit, short & punchy */}
       <span className="oh-h1-rotate-wrap" aria-live="polite">
         {benefits.map((word, i) => (
           <motion.span
             key={i}
-            className="oh-h1-rotate-word oh-bright"
+            className="oh-h1-rotate-word oh-dim"
             initial={false}
             animate={
               idx === i
                 ? { y: 0, opacity: 1 }
-                : { y: idx > i ? -56 : 56, opacity: 0 }
+                : { y: idx > i ? -48 : 48, opacity: 0 }
             }
-            transition={{ type: 'spring', stiffness: 55, damping: 16 }}
+            transition={{ type: 'spring', stiffness: 60, damping: 18 }}
             aria-hidden={idx !== i}
           >
             {word}
           </motion.span>
         ))}
       </span>
-      <br />
-
-      {/* Line 3 — closing punch */}
-      <span className="oh-dim">Pour</span>{' '}
-      <span className="oh-bright">2× moins cher.</span>
     </motion.h1>
   )
 }

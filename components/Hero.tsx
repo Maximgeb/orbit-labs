@@ -204,8 +204,7 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.65, ease: EASE, delay: 0.18 }}
         >
-          <strong>Brief en 2 minutes.</strong> On produit des MP4 hooks-first prêts Meta &amp; TikTok.{' '}
-          Tu testes vite — tu passes à l&apos;humain seulement quand le winner est validé.
+          Brief en 2 min · MP4 prêts <strong>Meta &amp; TikTok</strong> · Livraison Drive.
         </motion.p>
 
         {/* CTA */}
