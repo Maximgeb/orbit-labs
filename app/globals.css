@@ -3595,19 +3595,27 @@ h1, h2, h3 {
 
 .oh-h1-rotate-wrap {
   position: relative;
-  display: inline-block;
-  min-width: 14ch;
-  vertical-align: bottom;
+  display: block;
+  width: 100%;
   overflow: hidden;
   height: 1.14em;
+  text-align: center;
 }
 
 .oh-h1-rotate-word {
   position: absolute;
   left: 0;
+  right: 0;
   top: 0;
   white-space: nowrap;
-  display: inline-block;
+  display: block;
+  text-align: center;
+}
+
+/* Desktop: left-aligned inside the split layout */
+@media (min-width: 960px) {
+  .oh-split .oh-h1-rotate-wrap { text-align: left; }
+  .oh-split .oh-h1-rotate-word { text-align: left; right: auto; }
 }
 
 /* ============================================================
